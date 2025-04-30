@@ -5,3 +5,5 @@ class DatabaseConfig {
   static const String password = 'admin';
   static const String database = 'Aguitec';
 }
+
+//Test

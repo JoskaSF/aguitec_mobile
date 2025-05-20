@@ -27,7 +27,7 @@ CREATE TABLE Producciones (
 CREATE TABLE Dispensador (
     id_dispensador INT PRIMARY KEY AUTO_INCREMENT,
     id_edificio INT NOT NULL,
-    nombre VARCHAR(25) NOT NULL,
+    planta VARCHAR(25) NOT NULL,
     url VARCHAR(255) NOT NULL,
     FOREIGN KEY (id_edificio) REFERENCES Edificios(id_edificio)
 );
@@ -37,7 +37,7 @@ CREATE TABLE Reportes (
     id_dispensador INT NOT NULL,
     id_tipo INT NOT NULL,
     estado ENUM('Pendiente', 'Completado') NOT NULL,
-    fecha DATETIME NOT NULL,
+    fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_dispensador) REFERENCES Dispensador(id_dispensador),
     FOREIGN KEY (id_tipo) REFERENCES TiposReporte(id_tipo)
 );

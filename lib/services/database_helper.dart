@@ -34,4 +34,28 @@ class DatabaseHelper {
       throw Exception('Error al ejecutar la consulta: $e');
     }
   }
+
+  static Future<List<Map<String, dynamic>>> obtenerReportesPendientes() async {
+    const String query = '''
+      SELECT r.id_reporte, r.id_dispensador, d.planta as nombre_dispensador, 
+        r.id_tipo, t.nombre as nombre_tipo, t.prioridad, r.estado, r.fecha,
+        e.nombre as nombre_edificio
+      FROM Reportes r
+      JOIN Dispensador d ON r.id_dispensador = d.id_dispensador
+      JOIN TiposReporte t ON r.id_tipo = t.id_tipo
+      JOIN Edificios e ON d.id_edificio = e.id_edificio
+      WHERE r.estado = 'Pendiente'
+      ORDER BY 
+        CASE 
+          WHEN t.prioridad = 'Crítica' THEN 1
+          WHEN t.prioridad = 'Alta' THEN 2
+          WHEN t.prioridad = 'Media' THEN 3
+          WHEN t.prioridad = 'Baja' THEN 4
+          ELSE 5
+        END,
+        r.fecha
+    ''';
+    
+    return await ejecutarConsulta(query, []);
+  }
 }

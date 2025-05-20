@@ -11,9 +11,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'AGÜITEC',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
       home: const MainPage(),
@@ -27,28 +27,74 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Main Page'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('Welcome to Aguitec Mobile'),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // Navegar a la pantalla de login
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const LoginPage()),
-                );
-              },
-              child: const Text('Ir a Login'),
+      backgroundColor: Colors.white,
+      body: Column(
+        children: [
+          // Parte superior semicircular con logo
+          Container(
+            width: double.infinity,
+            height: MediaQuery.of(context).size.height * 0.5,
+            decoration: const BoxDecoration(
+              color: Color.fromARGB(255, 236, 243, 244),
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(220),
+                bottomRight: Radius.circular(220),
+              ),
             ),
-          ],
-        ),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'images/LogoAguitec.jpg', // Asegúrate de tener este archivo
+                    width: 350,
+                    height: 350,
+                  ),
+                  const SizedBox(height: 10),                
+                ],
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 80),
+
+          const Text(
+            'Bienvenido, inicia\nsesión para continuar.',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+
+          const SizedBox(height: 60),
+
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.lightBlue[300],
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
+              elevation: 2,
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginPage()),
+              );
+            },
+            child: const Text(
+              'Iniciar sesión',
+              style: TextStyle(
+                fontSize: 23,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
